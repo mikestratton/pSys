@@ -9,8 +9,9 @@ $bigBang = new BigBang();
 
 $num = 200000000000000000000000;
 $num2 = 32;
+$num3 = mt_rand(1,8192);
 $stars = new BillionTrillionStars();
-$stars->generation($num2);
+$stars->generation($num3);
 // print $stars->createBit();
 // $input = $stars->createData();
 // print $stars->createData();

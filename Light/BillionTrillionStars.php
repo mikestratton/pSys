@@ -30,13 +30,13 @@ class BillionTrillionStars{
       for($z=0; $z<8; $z++){
         $bit[$z] = mt_rand(0,1);
       }
-      print implode('',$bit);
-      print chr(implode('', $bit)); // new audio signal being sent through terminal
-      return implode('',$bit);
+        $implode = implode('', $bit);
+        print chr($implode); // new audio signal being sent through terminal
+        return $implode;
   }
   
   public function createStructure(){
-    $size = mt_rand(0, 8096);
+    $size = mt_rand(0, 1024);
     $insert = mt_rand(0, $size);
     $file_name = "files/" . time() . ".pSys";
     $file = fopen($file_name, "w") or die("Unable to open file!");
@@ -44,16 +44,16 @@ class BillionTrillionStars{
     for($i=0; $i<$size; $i++){
       if($i === $insert){
         $createData = $this->createBit();
-        $output = $createData;
+        $output = $createData . "\n";
         file_put_contents($file_name, $output, FILE_APPEND | LOCK_EX);
-          $chr = chr($output);
+          $chr = chr($output) . "\n";
           file_put_contents($file_name, $chr, FILE_APPEND | LOCK_EX);
         continue;
       }
       $createStruct = $this->createBit();
-      $output = $createStruct;
+      $output = $createStruct . "\n";
       file_put_contents($file_name, $output, FILE_APPEND | LOCK_EX);
-      $chr = chr($output);
+      $chr = chr($output) . "\n";
       file_put_contents($file_name, $chr, FILE_APPEND | LOCK_EX);
     }
     fclose($file);

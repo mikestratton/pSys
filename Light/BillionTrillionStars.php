@@ -24,43 +24,37 @@ class BillionTrillionStars{
   //   return $size;
   // }
 
-  public function createBit(){
-      for($z=0; $z<8; $z++){
-        $bit .= rand(0,1);
-      }
-    return $bit;
-  }
-  
-  public function createData(){
-    $size = rand(0,128);
 
-    if($size == 0){
-      return NULL;
-    }
-    for($b=0; $b<$size; $b++){
-      $data .= $this->createBit();
-    }
-    print $data;
+    public function createBit(){
+        $bit = [];
+      for($z=0; $z<8; $z++){
+        $bit[$z] = mt_rand(0,1);
+      }
+      print implode('',$bit);
+      print chr(implode('', $bit)); // new audio signal being sent through terminal
+      return implode('',$bit);
   }
   
   public function createStructure(){
-    $size = rand(0, 128);
-    $insert = rand(0, $size);
-    $file_name = "files/" . microtime() . ".pSys";
-    
+    $size = mt_rand(0, 8096);
+    $insert = mt_rand(0, $size);
+    $file_name = "files/" . time() . ".pSys";
+    $file = fopen($file_name, "w") or die("Unable to open file!");
+
     for($i=0; $i<$size; $i++){
       if($i === $insert){
         $createData = $this->createBit();
-        // print chr($createData);
-        $output = chr($createData);
-        $file = fopen($file_name, "w") or die("Unable to open file!");
-        fwrite($file, $output);
+        $output = $createData;
+        file_put_contents($file_name, $output, FILE_APPEND | LOCK_EX);
+          $chr = chr($output);
+          file_put_contents($file_name, $chr, FILE_APPEND | LOCK_EX);
         continue;
       }
-      // print chr($this->createBit());
-      $output = chr($this->createBit());
-      $file = fopen($file_name, "w") or die("Unable to open file!");
-      fwrite($file, $output);
+      $createStruct = $this->createBit();
+      $output = $createStruct;
+      file_put_contents($file_name, $output, FILE_APPEND | LOCK_EX);
+      $chr = chr($output);
+      file_put_contents($file_name, $chr, FILE_APPEND | LOCK_EX);
     }
     fclose($file);
   }

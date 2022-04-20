@@ -8,9 +8,9 @@ $bigBang = new BigBang();
 // print 200000000000000000000000;
 
 $num = 200000000000000000000000;
-$num2 = 1000;
+$num2 = 32;
 $stars = new BillionTrillionStars();
-$stars->generation($num);
+$stars->generation($num2);
 // print $stars->createBit();
 // $input = $stars->createData();
 // print $stars->createData();

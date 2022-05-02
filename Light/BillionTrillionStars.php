@@ -25,39 +25,33 @@ class BillionTrillionStars{
   // }
 
 
-    public function createBit(){
+    /**
+     * @throws Exception
+     */
+    public function createBit(): int
+    {
         $bit = [];
-      for($z=0; $z<8; $z++){
-        $bit[$z] = mt_rand(0,1);
-      }
-        $implode = implode('', $bit);
-        print chr($implode); // new audio signal being sent through terminal
-        return $implode;
-  }
-  
-  public function createStructure(){
-    $size = mt_rand(0, 1024);
-    $insert = mt_rand(0, $size);
-    $file_name = "files/" . time() . ".pSys";
-    $file = fopen($file_name, "w") or die("Unable to open file!");
-
-    for($i=0; $i<$size; $i++){
-      if($i === $insert){
-        $createData = $this->createBit();
-        $output = $createData . "\n";
-        file_put_contents($file_name, $output, FILE_APPEND | LOCK_EX);
-          $chr = chr($output) . "\n";
-          file_put_contents($file_name, $chr, FILE_APPEND | LOCK_EX);
-        continue;
-      }
-      $createStruct = $this->createBit();
-      $output = $createStruct . "\n";
-      file_put_contents($file_name, $output, FILE_APPEND | LOCK_EX);
-      $chr = chr($output) . "\n";
-      file_put_contents($file_name, $chr, FILE_APPEND | LOCK_EX);
+        for($z=0; $z<8; $z++){
+            $bit[$z] = random_int(0,1);
+        }
+        return implode('', $bit);
     }
-    fclose($file);
-  }
+
+    /**
+     * @throws Exception
+     */
+    public function createStructure(): void
+    {
+        $size = random_int(0, 1024);
+        $file_name = sprintf("files/%s.pSys", microtime());
+        $file = fopen($file_name, 'wb') or die("Unable to open file!");
+        for($i=0; $i<$size; $i++){
+            $newBit = chr($this->createBit());
+            file_put_contents($file_name, chr($this->createBit()), FILE_APPEND | LOCK_EX);
+        }
+        print $newBit;
+        fclose($file);
+    }
   
 
  /*create random binary data from 0-1024 bit size if size is 0 input is null
@@ -65,11 +59,15 @@ class BillionTrillionStars{
   output binary data
   compare binary data input/output, has it changed?
   notification if it has changed */
-  
-  public function generation($num){
-    for($g=0; $g<$num; $g++){
-      $this->createStructure();
+
+    /**
+     * @throws Exception
+     */
+    public function generation($num): void
+    {
+        for($g=0; $g<$num; $g++){
+          $this->createStructure();
+        }
     }
-  }
   
 }

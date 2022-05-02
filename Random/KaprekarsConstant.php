@@ -11,8 +11,13 @@ class KaprekarsConstant
 
     public function SixOneSevenFour(): void
     {
-        for ($i = 1000; $i <= 1001; $i++) {
+        for ($i = 1000; $i <= 9999; $i++) {
             $number = $i;
+
+            while($this->DigitsNotSame($number) !== true){
+                $i++;
+            }
+
             $ans = 0;
             $step = 1;
             while ($ans !== 6174) {
@@ -40,12 +45,39 @@ class KaprekarsConstant
                 $step++;
                 $number = $ans;
 
-                if($number < 1000){
+                if($number < 1000 && $number >= 100){
                     $number = array($number);
                     $number[] = 0;
                     $number = implode($number);
+
                 }
+                if($number < 100 && $number >= 10){
+                    $number = array($number);
+                    $number[] = 00;
+                    $number = implode($number);
+                }
+                if($number < 10 && $number >= 1){
+                    $number = array($number);
+                    $number[] = 000;
+                    $number = implode($number);
+                }
+
             }
         }
+    }
+
+    public function DigitsNotSame($number): bool
+    {
+        $number = str_split($number);
+        $is_true = false;
+
+        $uniq = array_unique($number);
+        $count = count($uniq);
+
+        if($count !== 1){
+            $is_true = true;
+
+        }
+        return $is_true;
     }
 }

@@ -6,7 +6,7 @@ class DataTypes{
   private $_string;
   private $_integer;
   private $_float;
-  private $_boolean:
+  private $_boolean;
   private $_array;
   private $_object;
   private $_null;
@@ -90,7 +90,8 @@ class DataTypes{
     $data_types['array'] = $this->getArray();
     $data_types['object'] = $this->getObject();
     $data_types['null'] = $this->getNull();
-        
+    $data_types['timestamp'] = $this->getTimestamp();
+
     return $data_types;
     }
 }
